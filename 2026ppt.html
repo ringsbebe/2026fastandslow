@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026述職報告_FAST AND SLOW</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@100..900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== 基本設定 ===== */
+    html,body{
+      margin:0;padding:0;width:100%;height:100%;
+      background:#f8f6f1;color:#000;
+      font-family:"Alumni Sans",system-ui;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;inset:0;
+      z-index:-1;opacity:.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ===== HERO ===== */
+    .stage{
+      height:100vh;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 5vw;
+      box-sizing:border-box;
+      overflow: hidden;
+    }
+
+    .type-container{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      height: 100%;
+    }
+    
+    .line{
+      font-size: 35vh;
+      line-height: 0.7;
+      font-weight: 300;
+      letter-spacing: -10px;
+      white-space: nowrap;
+      margin-left: -10px;
+    }
+
+    /* 右側前言 */
+    .cn-container{
+      max-width:50vw;
+      font-family:"PingFang TC","Microsoft JhengHei",sans-serif;
+      font-size:1.25rem;
+      line-height:1.8;
+      white-space:pre-wrap;
+      text-align: right;
+      opacity: 0;
+      filter: blur(12px);
+      transform: scale(1.02);
+      transition: opacity 2.5s ease, filter 2.5s ease, transform 2.5s ease;
+      margin-left: 40px;
+    }
+
+    .cn-container.visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: scale(1);
+    }
+
+    /* ===== SECTION 共用 ===== */
+    section.practice{
+      padding: 20px 10vw 60px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      position: relative;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    /* 區塊上方的細分隔線 */
+    section.practice::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    /* 針對 VIBE CODING (#useless) 單獨設定上邊界 */
+    #useless {
+      margin-top: 150px;
+    }
+
+    section.practice.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    h2{
+      font-size:clamp(3.2rem, 7vw, 5.2rem);
+      letter-spacing:4px;
+      margin-bottom:5px;
+      margin-top: 0;
+      text-align:center;
+      line-height:1.05;
+      font-weight: 500;
+    }
+
+    section.practice > p{
+      font-size:1.45rem;
+      line-height:1.85;
+      max-width:680px;
+      font-family:"PingFang TC","Microsoft JhengHei",sans-serif;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    /* ===== BOOKS ===== */
+    #reading .book-grid{
+      width:100%;
+      max-width:1200px;
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:30px;
+    }
+
+    #reading .book-item{
+      display:flex;
+    }
+
+    #reading .book-card{
+      width:100%;
+      min-height:100%;
+      padding: 60px 30px 15px; 
+      background:rgba(255,255,255,0.78);
+      border-radius:16px;
+      box-shadow:
+        0 10px 26px rgba(0,0,0,0.08),
+        inset 0 0 0 1px rgba(0,0,0,0.05);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      transition:transform .35s ease, box-shadow .35s ease;
+    }
+
+    #reading .book-item:hover .book-card{
+      transform:scale(1.035);
+      box-shadow:
+        0 18px 42px rgba(0,0,0,0.12),
+        inset 0 0 0 1px rgba(0,0,0,0.08);
+    }
+
+    #reading .book-card img{
+      width:100%;
+      max-width:240px;
+      height:auto;
+      object-fit:contain;
+      display:block;
+    }
+
+    #reading .book-brief{
+      margin-top:18px;
+      text-align:center;
+      font-family:"PingFang TC","Microsoft JhengHei",sans-serif;
+      font-size:0.95rem;
+      line-height:1.6; 
+    }
+
+    #reading .book-brief p{
+      margin:4px 0;
+      opacity:.85;
+    }
+
+    #reading .book-brief p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width:900px){
+      #reading .book-grid{
+        grid-template-columns:1fr;
+        gap:56px;
+      }
+      #reading .book-card{
+        padding:40px 24px 20px;
+      }
+      .line { font-size: 20vh; }
+    }
+
+    /* ===== 遊戲區塊結構 (新) ===== */
+    
+    /* 1. 包裹容器：用來定位 QR Code */
+    .game-container {
+      position: relative;
+      width: fit-content;
+      margin-top: 60px;
+      /* 讓內容物置中 */
+      display: flex;
+      justify-content: center;
+    }
+
+    /* 2. iframe 框架：直式設定 */
+    .iframe-wrapper{
+      /* 限制寬度為類似手機的大小，這樣遊戲選項就會在上方 */
+      width: 450px; 
+      max-width: 90vw;
+      
+      /* 設定直式比例 (9:16) */
+      aspect-ratio: 9/16;
+      
+      border-radius:12px;
+      overflow:hidden;
+      background:#000; /* 遊戲背景通常是黑的，這樣邊角比較好看 */
+      box-shadow:0 10px 40px rgba(0,0,0,.2);
+      
+      /* 動畫設定 */
+      opacity:0;
+      transform:scale(.96);
+      transition:opacity 1.5s ease, transform 1.5s ease;
+    }
+    
+    .iframe-wrapper.visible{
+      opacity:1;
+      transform:scale(1);
+    }
+    
+    iframe{width:100%;height:100%;border:none;}
+
+    /* 3. QR Code 區塊 */
+    .qr-box {
+      position: absolute;
+      bottom: 0;
+      /* 放在遊戲框的右邊外面 */
+      right: -140px; 
+      
+      width: 120px;
+      text-align: center;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 1s ease 0.5s, transform 1s ease 0.5s; /* 稍微延遲顯示 */
+    }
+
+    /* 當 iframe 出現時，QR code 也出現 */
+    .iframe-wrapper.visible ~ .qr-box {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .qr-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: #fff;
+      padding: 6px;
+    }
+    
+    .qr-desc {
+      font-family:"PingFang TC","Microsoft JhengHei",sans-serif;
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    /* 手機版 RWD：QR Code 移到下方 */
+    @media (max-width: 900px) {
+      .game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .qr-box {
+        position: static; /* 取消絕對定位 */
+        margin-top: 30px;
+        right: auto;
+        transform: none;
+      }
+      .iframe-wrapper {
+        width: 100%; /* 手機版全寬 */
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer{
+      text-align:center;
+      padding: 40px 0 60px;
+      position: relative;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity 1.2s ease, transform 1.2s ease;
+      font-size: 1.5rem;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    footer.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:900px){
+      .stage{
+        flex-direction:column;
+        justify-content:center;
+        gap:40px;
+      }
+      .cn-container{max-width:100%; margin-left:0; text-align: center;}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="stage">
+  <div class="type-container">
+    <div class="line">FAST</div>
+    <div class="line">&</div>
+    <div class="line">SLOW</div>
+  </div>
+
+  <div class="cn-container" id="cnContainer">
+2025 年的 AI，不再只是社群上的 FOMO，
+而是一場全面性的 AI 資訊洪流。
+
+我在工作上學習 AI 工具，卻發現真正迎面而來的，
+是與 AI 交織的科技新創的故事、國際政治的角力、社會經濟的結構。
+這些資訊離生活更近，也因此更複雜、更難被完整消化。
+
+當資訊量大到無法全面吸收時，
+我開始接受「理解的有限性」，放下「什麼都要知道」的焦慮。
+從 Fast 轉向 Slow，把注意力留給真正重要的事。
+  </div>
+</div>
+
+<section class="practice" id="reading">
+  <h2>READING BOOKS</h2>
+  <p>
+    有意識地讓自己離開螢幕，所以看紙本書。<br>
+    練習一行一行看字、畫線，讓自己慢慢靜下來。
+  </p>
+
+  <div class="book-grid">
+    <div class="book-item">
+      <div class="book-card">
+        <img src="images/singularity.webp" alt="奇點已近">
+        <div class="book-brief">
+          <p>科技智慧超越人類的臨界點</p>
+          <p>人機整合與現實重組</p>
+          <p>我們正在看的未來發生</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-item">
+      <div class="book-card">
+        <img src="images/adults.webp" alt="大人只知道部分的世界">
+        <div class="book-brief">
+          <p>每個人只活過一種人生</p>
+          <p>別把任何話當成真理</p>
+          <p>寫給年輕人，也給大人</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-item">
+      <div class="book-card">
+        <img src="images/thanks.webp" alt="謝謝你留下來陪我">
+        <div class="book-brief">
+          <p>記錄父母老去的過程</p>
+          <p>學會照顧，而非逃避</p>
+          <p>把日常走得更長</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="practice" id="useless">
+  <h2>VIBE CODING<br/>FOR USELESS THINGS</h2>
+  <p>
+    如何讓AI跟生活連結，我們總是在想有用的事，<br>
+    但我從做一個很廢的東西，也是學到了一些事情耶!太神奇了！
+  </p>
+
+  <div class="game-container">
+    <div class="iframe-wrapper" id="aiBox">
+      <iframe
+        src="https://ringsbebe.github.io/Sandtrixvol.3-/"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="qr-box">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://ringsbebe.github.io/Sandtrixvol.3-/" alt="Play on Mobile">
+      <div class="qr-desc">SCAN TO PLAY</div>
+    </div>
+  </div>
+
+</section>
+
+<footer id="pageFooter">Slow down — the future can wait.</footer>
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById("cnContainer").classList.add("visible");
+  }, 800);
+});
+
+/* ===== Scroll reveal ===== */
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add("visible");
+  });
+},{threshold:.2});
+
+document.querySelectorAll("section.practice,footer")
+  .forEach(el=>revealObs.observe(el));
+
+/* ===== 遊戲 iframe 顯示 (連動 QR code) ===== */
+const gameBox=document.getElementById("aiBox");
+const gameObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      gameBox.classList.add("visible");
+      gameObs.disconnect();
+    }
+  });
+},{threshold:.3});
+gameObs.observe(gameBox);
+</script>
+
+</body>
+</html>
